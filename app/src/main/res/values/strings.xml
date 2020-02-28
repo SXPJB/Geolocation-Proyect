@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Geolocation Proyect</string>
     <string name="title_activity_maps">Map</string>
+    <string name="sin_valores">Sin valores</string>
+    <string name="latitud">Latitud</string>
+    <string name="longitud">Longitud</string>
+    <string name="precision">Precision</string>
+    <string name="altura">Altura</string>
+    <string name="localizar">Localizar</string>
 </resources>
