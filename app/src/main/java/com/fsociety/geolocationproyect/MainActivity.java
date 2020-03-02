@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,13 +15,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private LocationManager locManager;
     private LocationListener locListener;
     private TextView tvLatitud, tvLongitud, tvPrecision, tvAltura, tvPorDefecto;
+    private Button btnLocalizar;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,24 @@ public class MainActivity extends AppCompatActivity {
         tvPrecision = (TextView) findViewById(R.id.tvPrecision);
         tvAltura = (TextView) findViewById(R.id.tvAltura);
         tvPorDefecto = (TextView) findViewById(R.id.tvPorDefecto);
+        btnLocalizar=(Button)findViewById(R.id.btnLocalizar );
+        rastreoGPS();
+        btnLocalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v)
+            {
+                try
+                {
+                    Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                    intent.putExtra("Longitud", tvLongitud.getText().toString());
+                    intent.putExtra("Latitud", tvLatitud.getText().toString());
+                    startActivity(intent);
+                } catch (Exception ex)
+                {
+                    Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
